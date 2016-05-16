@@ -1,0 +1,31 @@
+extends ./base.jade
+block append style
+    link(rel="stylesheet", type="text/css", href="/assets/style.css")
+block body
+  nav
+    a(href="/login")
+      img#logo(src="/assets/img/face.png", alt="face logo")
+    .navlink
+      a(href="/logout") Log out
+  h1 JumpPong
+  section#buttons
+    .navlink
+      a(href="/profile") Profile
+    .navlink
+      a(href="/lobbies") Lobbies
+  section#leader
+    if !users || users.length == 0
+        div.leader
+            h3.emptyLobby No Users yet
+    else
+        each val in users
+            div.leader
+                img(class="lobbyFace", src="/assets/img/gamecontroller.png", alt="face")
+                h3.lobbyName Name: #{val.username}
+                h3.numWins Wins: #{val.wins}
+  #lobbyMessage
+    img#speech(src="/assets/img/speech.png", alt="speech box")
+    h3
+      span#errorMessage
+block scripts
+        script(src="/assets/maker.js")

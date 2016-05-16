@@ -1,0 +1,476 @@
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+#logo {
+    height: 40px;
+    width: 40;
+    padding-top: 5px;
+    float:left;
+    border-radius: 8px;
+}
+
+#canvas {
+    display: block; 
+    margin: 0.5em auto;
+}
+
+textarea {
+    padding-top: 20;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+nav {
+    width: 100%;
+    height: 50px;
+    background-color: #ff471a;
+}
+
+nav:nth-child(1) {
+    padding-left: 25px;
+}
+
+.navlink {
+    padding: 5px;
+    padding-top: 12px;
+    padding-left: 20px;
+    color: white;
+    font-size: 1.3em;
+    float: left;
+}
+
+.navlink a, .navlink a:link, .navlink a:visited, .navlink a:hover, .navlink a:active {
+    color: white;
+    text-decoration: none;
+    padding: 5px;
+    background-color: #ff471a;
+    transition: background-color 0.4s ease;
+    border: 1px solid black;
+}
+
+.navlink a:hover {
+    transition: background-color 0.4s ease;
+    color: black;
+    border-radius: 3px;
+    background-color: white;
+    border-color: black;
+}
+
+h1 {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    margin: 0;
+    font-family: "Verdana", Gadget, sans-serif;
+}
+
+.lobbyForm {
+	margin-left: auto;
+    margin-right: auto;
+    border: 2px solid #ff944d;
+    height: 35px;
+    width: 700px;
+    margin-top:10px;
+    padding-top:10px;
+    border: 1px solid black;
+    background-color: #ff471a;
+    border-radius: 10px;
+    
+}
+
+.lobbyForm label {
+    display: inline-block;
+    width: 75px;
+    margin-left: 10px;
+    font-size: 1.2em;
+    float: left;
+    color: white;
+}
+
+.lobbyForm input[type=text] {
+    float:left;
+}
+
+.makeLobbySubmit {
+    transition: background-color 0.4s ease;
+    display: inline;
+    margin-top: 14px;
+    font-size: 1.2em;
+    width: 90px;
+    background-color: #ff471a;
+    border-radius: 2px;
+    padding: 3px 0px;
+    color: black;
+    text-decoration: none;
+    margin-left: 45px;
+    padding: 5px;
+}
+
+.makeLobbySubmit:link, .makeLobbySubmit:visited, .makeLobbySubmit:hover, .makeLobbySubmit:active {
+    color: white;
+}
+
+.makeLobbySubmit:hover {
+    transition: background-color 0.4s ease;
+    color: black;
+    background-color: white;
+    border-color: black;
+}
+
+#refreshLobbies {
+    transition: background-color 0.4s ease;
+    display: inline;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+    width: 70px;
+    background-color: ##ff471a;
+    border-radius: 2px;
+    padding: 3px 0px;
+    color: black;
+    text-decoration: none;
+    margin-left: 45px;
+    padding: 5px;
+    float:right;
+}
+
+.refreshLobbies:link, .refreshLobbies:visited, .refreshLobbies:hover, .refreshLobbies:active {
+    color: white;
+}
+
+.refreshLobbies:hover {
+    transition: background-color 0.4s ease;
+    background-color: #ff471a;
+}
+
+.mainForm {
+    height: 300px;
+    width: 350px;
+    margin: 0 auto;
+    padding-top: 150px;
+    font-size: 1.2em;
+}
+
+.mainForm h3 {
+    text-align: center;
+}
+
+.mainForm label {
+    display: inline-block;
+    width: 100px;
+    margin-right: 10px;
+    text-align: right;
+    font-size: 1.2em;
+}
+
+.formSubmit {
+    transition: background-color 0.4s ease;
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 14px;
+    font-size: 1.2em;
+    width: 90px;
+    background-color: #ff471a;
+    border-radius: 2px;
+    padding: 3px 0px;
+    color: black;
+    text-decoration: none;
+}
+
+.formSubmit:link, .formSubmit:visited, .formSubmit:hover, .formSubmit:active {
+    color: white;
+}
+
+.formSubmit:hover {
+    transition: background-color 0.4s ease;
+    color: black;
+    background-color: white;
+    border-color: black;
+}
+
+#user, #pass, #pass2 {
+    text-align: center;
+    font-size: 1.1em;
+    width: 180px;
+    border-radius: 6px;
+}
+
+#user:focus, #pass:focus, #pass2:focus {
+    outline: none;
+    box-shadow: 0px 0px 1px 1px #ff471a;
+}
+
+#lobbyMessage {
+    display:none;
+    top: 250px;
+    width: 250px;
+    height: 650px;
+    position: absolute;
+    z-index: 200;
+    right: 0px;
+    overflow: hidden;
+}
+
+#lobbyMessage h3 {
+    width: 200px;
+    position: absolute;
+    top: 0px;
+    left: 20px;
+}
+
+#speech {
+    height: 170px;
+    width: 250px;
+    z-index:300;
+}
+
+#errorMessage {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: red;
+    font-style: italic;
+    padding-left: 25px;
+}
+
+#lobby {
+    z-index: 225;
+    margin-top: -20px;
+    margin-left: 135px;
+    height: 300px;
+    width: 300px;
+    -ms-transform: rotate(330deg);
+    -webkit-transform: rotate(330deg); 
+    transform: rotate(330deg);
+}
+
+#lobbies {
+    width: 40%;
+    min-width: 800px;
+    border: 1px solid black;
+    border-radius: 4px;
+    margin: 0 auto;
+    margin-top: 80px;
+}
+
+#buttons {
+    margin-left: 40%;
+}
+
+#chat{
+	width: 500px;
+}
+
+#userProfile{
+    margin-top: 100px;
+}
+
+.profile{
+    width: 60%;
+    margin: 0 auto;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    background-color: #ff471a;
+    min-height:80px;
+    max-width: 470px;
+    overflow: hidden;
+    border-radius: 6px;
+}
+
+.profile:hover{
+    transition: border-color 0.4s ease-out;
+    border-color: rgba(255,255,255, 0.8);
+    transition: background-color 2.6s ease-out;
+    background-color: #ffb366;
+}
+
+.lobby {
+    width: 95%;
+    margin: 0 auto;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    background-color: #ff471a;
+    min-height:40px;
+    overflow: hidden;
+    border-radius: 6px;
+}
+
+.lobby:hover {
+    transition: border-color 0.4s ease-out;
+    border-color: rgba(255,255,255, 0.8);
+    transition: background-color 2.6s ease-out;
+    background-color: #ffb366;
+}
+
+#leader {
+
+    margin-top: 100px;
+  
+}
+
+.leader {
+    width: 95%;
+    margin: 0 auto;
+    margin-top: 10px;
+    margin-bottom: 2px;
+    background-color: #ff471a;
+    min-height:40px;
+    max-width: 750px;
+    overflow: hidden;
+    border-radius: 2px;
+}
+
+.leader:hover {
+    transition: border-color 0.2s ease-out;
+    border-color: rgba(255,255,255, 0.8);
+    transition: background-color 2.6s ease-out;
+    background-color: #ffb366;
+}
+
+.leader:last-child {
+    margin-bottom:10px;
+}
+
+img.userImage{
+    margin-left: 15px;
+    margin-right: 10px;
+    height: 80px;
+    width: 100px;
+    border-radius: 4px;
+    margin-top:50px;
+    float:left;
+}
+
+img.lobbyFace {
+    margin-left: 15px;
+    margin-right: 10px;
+    height: 40px;
+    width: 50px;
+    border-radius: 4px;
+    margin-top:5px;
+    float:left;
+}
+
+h3.emptyLobby {
+    width: 400px;
+    font-size: 1.5em;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+h3.lobbyName {
+    float:left;
+    width: 200px;
+    font-weight: bold;
+    padding-left: 30px;
+    padding-right: 5px;
+    padding-top: auto;
+    padding-bottom: auto;
+    font-size: 1em;
+    font-family: "Futura", Gadget, sans-serif;
+}
+
+h3.infoText{
+    margin-left: 40%;
+    float:left;
+    width: 70px;
+    font-weight: bold;
+    padding-left: 30px;
+    padding-right: 15px;
+    padding-top: auto;
+    padding-bottom: auto;
+    font-size: 1.5em;
+    font-family: "Futura", Gadget, sans-serif;
+}
+
+h3.lobName, .playerName{
+    font-weight: bold;
+    padding-top: auto;
+    padding-bottom: auto;
+    font-size: 1.5em;
+    font-family: "Futura", Gadget, sans-serif;
+}
+
+h3.userName {
+    float:left;
+    width: 200px;
+    font-weight: bold;
+    padding-left: 30px;
+    padding-top: auto;
+    padding-bottom: auto;
+    font-size: 2em;
+    font-family: "Futura", Gadget, sans-serif;
+}
+
+h3.numWins {
+    float:right;
+    text-align: right;
+    width: 200px;
+    font-weight: bold;
+    padding-right: 30px;
+    font-size: 1em;
+}
+
+h3.userWins {
+    float:left;
+    text-align: right;
+    width: 100px;
+    font-weight: bold;
+    padding-right: 30px;
+    font-size: 1.5em;
+}
+
+h3.userGames {
+    float:right;
+    text-align: left;
+    width: 100px;
+    font-weight: bold;
+    padding-right: 30px;
+    font-size: 1.5em;
+}
+
+
+.lobby:first-child {
+    margin-top: 10px;
+}
+
+.lobby:last-child {
+    margin-bottom:10px;
+}
+
+.remove {
+	float: right;
+    transition: background-color 0.4s ease;
+    display: inline;
+    margin-top: 14px;
+    font-size: 1.2em;
+    width: 90px;
+    background-color: #ff471a;
+    border-radius: 2px;
+    padding: 3px 0px;
+    color: black;
+    text-decoration: none;
+    margin-left: 45px;
+    padding: 5px;
+}
+
+.remove:link, .remove:visited, .remove:hover, .remove:active {
+    color: white;
+}
+
+.remove:hover {
+    transition: background-color 0.4s ease;
+    color: black;
+    background-color: white;
+}

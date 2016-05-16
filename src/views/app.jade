@@ -1,0 +1,42 @@
+extends ./base.jade
+block append style
+    link(rel="stylesheet", type="text/css", href="/assets/style.css")
+block body
+  nav
+    a(href="/login")
+      img#logo(src="/assets/img/face.png", alt="home logo")
+    .navlink
+      a(href="/logout") Log out
+  h1 JumpPong
+  section#makeLobby
+    form#lobbyForm(class="lobbyForm", name="lobbyForm", action="/lobbies", method="POST")
+      label(for="name") Name: 
+      input#lobbyName(type="text", name="name", placeholder="Lobby Name")
+      label(for="score") Score: 
+      input#lobbyScore(type="text", name="score", placeholder="Score to win")
+      input(type="hidden", name="_csrf", value="#{csrfToken}")
+      a#makeLobbySubmit(class="makeLobbySubmit", href="#") Create Lobby
+  #lobbyMessage
+    img#speech(src="/assets/img/message.png", alt="speech box")
+    h3
+      span#errorMessage
+  section#buttons
+    .navlink
+      a(href="/profile") Profile
+    .navlink
+      a(href="/leaderboard") Leaderboards    
+  section#lobbies
+    a#refreshLobbies(href="/lobbies", class="refreshLobbies") Refresh
+    if !lobbies || lobbies.length == 0
+        div.lobby
+            h3.emptyLobby No Lobbies yet
+    else
+      each val in lobbies
+            div.lobby
+                a(href="/killer/#{val.name}", class="remove") Delete
+                a(href="/join/#{val.name}/#{val.score}", class="remove") Join
+                img(class="lobbyFace", src="/assets/img/lobby.png", alt="face")
+                h3.lobbyName Lobby: #{val.name}
+                h3.numWins Score to win: #{val.score}
+block scripts
+        script(src="/assets/maker.js")

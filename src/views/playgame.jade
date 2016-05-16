@@ -1,0 +1,31 @@
+extends ./base.jade
+block append style
+    link(rel="stylesheet", type="text/css", href="/assets/style.css")
+block body
+  nav
+    a(href="/login")
+      img#logo(src="/assets/img/face.png", alt="face logo")
+    .navlink
+      a(href="/logout") Log out
+  h1 JumpPong
+  h3.infoText Lobby:
+  h3.lobName #{lobbyData.lobbyName}
+  h3.emptyLobby(id=lobbyData.score) Score to win: #{lobbyData.score}
+  h3.infoText Player: 
+  h3.playerName #{lobbyData.playerName}
+  section#buttons
+    .navlink
+      a(href="/quit/lobbyData.owner", class="finish") Finish 
+    .navlink
+      a(href="/quit/lobbyData.owner", class="remove") Quit 
+    
+  canvas#canvas(height='500', width='500', tabindex='1') Please use an HTML 5 browser
+  | &#x9;
+  | &#x9;
+  #players  
+  | &#x9;
+  textarea#chat(rows='20', cols='40', readonly='') 
+block scripts
+  script(src="/socket.io/socket.io.js")
+  script(src="/assets/game.js")
+
