@@ -1,3 +1,5 @@
+"use strict";
+
 var _ = require('underscore');
 var path = require('path');
 var models = require('../models');

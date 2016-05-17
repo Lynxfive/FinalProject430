@@ -1,3 +1,5 @@
+"use strict";
+
 var canvas;
 var ctx;
 var socket; 
@@ -197,7 +199,7 @@ function endGame(data){
 	console.log(won);
 	document.getElementsByClassName('finish')[0].href += "/" + won;
 
-	drawGO();
+
 }
 
 function connectSocket(){

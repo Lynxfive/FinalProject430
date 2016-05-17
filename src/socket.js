@@ -1,3 +1,5 @@
+"use strict";
+
 var io;
 
 //var shell = require('game-shell')();
