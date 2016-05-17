@@ -36,6 +36,12 @@ var AccountSchema = new mongoose.Schema({
         default: 0
     },
 
+    gamesPlayed: {
+        type: Number,
+        min: 0,
+        default: 0
+    },
+
 });
 
 AccountSchema.methods.toAPI = function() {
@@ -43,7 +49,8 @@ AccountSchema.methods.toAPI = function() {
     return {
         username: this.username,
         _id: this._id,
-        wins: this.wins
+        wins: this.wins,
+        gamesPlayed: this.gamesPlayed
     };
 };
 
@@ -83,7 +90,7 @@ AccountSchema.statics.findAllUsers = function(callback) {
 		if (!err){ 
 			var usernames = accounts.map(function(account){
 				
-				return {username: account.username, wins: account.wins}; // {un, win, lose}
+				return {username: account.username, wins: account.wins, gamesPlayed: account.gamesPlayed}; // {un, win, lose}
 			});
 			return callback(usernames);
 		} else {throw err;}	

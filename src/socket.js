@@ -49,8 +49,10 @@ var onScoreUpdate = function(socket) {
 
 var onMovementUpdate = function(socket) {
 	socket.on('updatePlayer', function(data) {
+		if(rooms[data.roomName].users[data.user.name] !== undefined){
 			rooms[data.roomName].users[data.user.name] = data.user;
-			io.sockets.in(data.roomName).emit('updatePlayerPos', data.user);		
+			io.sockets.in(data.roomName).emit('updatePlayerPos', data.user);
+		}			
 	});
 };
 
@@ -66,14 +68,14 @@ var onJoined = function(socket) {
 		var roomName = data.room;
 
 		if(!rooms[roomName]){
-			rooms[roomName] = {users: {}, ball: {}};
+			rooms[roomName] = {users: {}, ball: null};
 		} else {
 			//rooms[roomName].users[data.name] = {};
 		}
 		
 		var numPlayers = Object.keys(rooms[roomName].users).length;
-		//console.log(numPlayers);
-		var servBall;
+		var servBall = null;
+
 		if(numPlayers < 2){
 			//socket.name = data.name;
 			var playerInfo;
@@ -91,17 +93,18 @@ var onJoined = function(socket) {
 			rooms[roomName].ball = servBall;
 
 		
-			console.log(rooms[roomName]);
 			socket.join(roomName);
 			io.sockets.in(roomName).emit('updatePlayers', {users: rooms[roomName].users, ball: rooms[roomName].ball});
 		}
 		
 		if(rooms[roomName].ball !== null){
 			
-			setInterval(function (){
+			rooms[roomName].interval = setInterval(function (){
 
+				var keys = Object.keys(rooms[roomName].users);
+				//console.log(keys);
 				// do collision detection here
-				if(Object.keys(rooms[roomName].users).length == 2){
+				if(keys.length == 2){
 
 					checkCollisions(roomName);
 
@@ -109,6 +112,11 @@ var onJoined = function(socket) {
 					rooms[roomName].ball.y += rooms[roomName].ball.ySpeed;
 
 					io.sockets.in(roomName).emit('updateBall', rooms[roomName].ball);
+				} else if(keys.length < 2){	
+					console.log("EndGame");	
+
+					io.sockets.in(roomName).emit('gameover', rooms[roomName].users[keys[0]]);
+					clearInterval(rooms[roomName].interval);				
 				}
 				
 			}, 100);
@@ -122,9 +130,19 @@ var onDisconnect = function(socket) {
 		//console.log(socket);
 		//console.log(socket);
 		var user = socket.name;
+		//console.log(user);
 		//io.sockets.in(roomName).emit('removeUser', user);
 		//socket.leave(roomName);
 		//delete users[socket.name];
+	});
+
+	socket.on('playerQuit', function(data){
+		console.log(rooms[data.roomName].users);
+		delete rooms[data.roomName].users[data.name];
+		socket.leave(data.roomName);		
+		var keys = Object.keys(rooms[data.roomName].users);
+		console.log(keys);
+		//io.sockets.in(data.roomName).emit('gameover', rooms[data.roomName].users[keys[0]]);
 	});
 };
 

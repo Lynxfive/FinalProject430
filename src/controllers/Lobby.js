@@ -68,15 +68,7 @@ var playgame = function(req,res){
          //score: req.body.score,
          owner: req.session.account._id         
      };
-
-     //res.sendFile(path.join(__dirname + '/../views/index.html'));
-
-     //console.log(lobbyData.owner);
-
-     // trying with jade
-    //res.render('game', { csrfToken: req.csrfToken(), lobbyData: lobbyData });
-
-    //res.render('playgame', { csrfToken: req.csrfToken(), lobbyData: lobbyData });  
+ 
 };
 
 var joingame = function(req,res){
@@ -88,6 +80,15 @@ var joingame = function(req,res){
              score: req.params.score,
              owner: req.session.account._id
         };
+
+    Lobby.LobbyModel.remove({name: req.params.name}, function(err){
+        if(err){
+            res.json(err);
+        }
+        else{
+            //res.redirect('/lobbies');
+        }        
+    });
 
     res.render('playgame', {csrfToken: req.csrfToken(), lobbyData: lobbyData});
 
@@ -141,15 +142,17 @@ var removeCurrentLobby = function(req, res){
                } 
 
                if (req.params.won == "true"){
-                user.wins++;
-                user.save(function(err) {
+                user.wins++;                
+               }
+
+            user.gamesPlayed++;
+               user.save(function(err) {
                     //if save error, just return an error for now
                     if(err) {
                         return res.json({err:err});
                     }
                     
                 });
-               }
 
                // change user wins here some how
                 res.redirect('/lobbies');

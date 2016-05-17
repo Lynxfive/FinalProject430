@@ -107,18 +107,20 @@ function drawPlayers(){
 		if(pongBall){
 			drawBall(pongBall);
 		}
- 	} else {
- 		ctx.fillStyle = "black"
- 		ctx.font = "50px Comic Sans MS";
-		ctx.strokeStyle = "black";
-		ctx.textAlign = "center";
-		ctx.fillText("GameOver", 
-						canvas.width/2, canvas.height/2);
-		ctx.fillText(gameWinner.name + " wins!", 
-						canvas.width/2, canvas.height/3);
-
- 	}	
+ 	} 	
 	
+}
+
+function drawGO(){
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	ctx.fillStyle = "black"
+	ctx.font = "50px Comic Sans MS";
+	ctx.strokeStyle = "black";
+	ctx.textAlign = "center";
+	ctx.fillText("GameOver", 
+					canvas.width/2, canvas.height/2);
+	ctx.fillText(gameWinner.name + " wins!", 
+					canvas.width/2, canvas.height/3);
 }
 
 function drawBall(ball){
@@ -194,6 +196,8 @@ function endGame(data){
 	var won = player.name == gameWinner.name ? "true" : "false";
 	console.log(won);
 	document.getElementsByClassName('finish')[0].href += "/" + won;
+
+	drawGO();
 }
 
 function connectSocket(){
@@ -228,12 +232,18 @@ function connectSocket(){
 
 		//users[player.name] = player.name;
 
-		setInterval(function (){
-			if(users[player.name]){
-				socket.emit('updatePlayer', {user: users[player.name], roomName: roomName});
+		var playerInterval = setInterval(function (){
+			if(!gameOver){
+				if(users[player.name]){
+					socket.emit('updatePlayer', {user: users[player.name], roomName: roomName});
+				}
+			} else {
+				console.log("testttt")
+				clearInterval(playerInterval);
 			}
 			
-		}, 10);
+			
+		}, 100);
 
 		
 
@@ -287,6 +297,19 @@ function init() {
     canvas.focus();
     ctx = canvas.getContext("2d");
 	canvas.addEventListener( "keydown", doKeyDown, true);
+
+	document.getElementsByClassName('remove')[0].addEventListener("click", function(){
+
+		socket.emit('playerQuit', {name: player.name, roomName: roomName});
+
+	}, true)
+
+	document.getElementsByClassName('finish')[0].addEventListener("click", function(){
+
+		socket.emit('playerQuit', {name: player.name, roomName: roomName});
+
+	}, true)
+
 
 	connectSocket();
 	
